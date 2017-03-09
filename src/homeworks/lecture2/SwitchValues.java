@@ -5,7 +5,7 @@ public class SwitchValues {
     public static void main(String[] args) {
 
         int first = 1;
-        int second = -2;
+        int second = 122;
 
         first = first + second;
         second = first - second;
