@@ -1,6 +1,7 @@
 package homeworks.lecture2;
 
 public class TriangleSquare {
+    
     public static void main(String[] args) {
         int x1 = 1, y1 = 1;
         int x2 = 10, y2 = 7;
@@ -28,4 +29,5 @@ public class TriangleSquare {
         System.out.println("Length of all sides is " + length);
         System.out.println("Square is " + square);
     }
+    
 }
