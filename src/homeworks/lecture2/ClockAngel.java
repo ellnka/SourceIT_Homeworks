@@ -5,7 +5,7 @@ public class ClockAngel {
     public static void main(String[] args) {
         int hours = 4;
         int mins = 45;
-        float result = 0;
+        float result = 0.00f;
 
         if(hours >= 0 && hours <= 12 && mins >= 0 && mins <= 60) {
             result = Math.abs((360.00f / 12.00f) * hours + (360.00f / 12.00f / 60.00f * mins) - (360.00f / 60.00f) * mins);
