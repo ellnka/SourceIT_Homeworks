@@ -23,8 +23,8 @@ public class TriangleSquare {
         length += (float) Math.sqrt((Math.pow((x1 - x3), 2))+(Math.pow((y1 - y3), 2)));
 */
         length =  a + b + c;
-        p = length/2;
-        square = (float) Math.sqrt( p*(p - a)*(p - b)*(p - c));
+        p = length / 2;
+        square = (float) Math.sqrt(p * (p - a) * (p - b) * (p - c));
 
         System.out.println("Length of all sides is " + length);
         System.out.println("Square is " + square);
