@@ -9,7 +9,8 @@ public class MatrixPrinter {
             {3, 4, 5, 6},
             {7, 5, 4, 1}
         };
-    /* Your code here */
+
+        /* Possible solution: */
 
         for (int[] arrayRow: array) {
             for (int i = 0; i < arrayRow.length; i++) {

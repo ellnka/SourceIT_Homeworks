@@ -3,7 +3,6 @@ package homeworks.lecture3;
 public class YourOwnBinarySearch {
 
 
-    /* Your code here */
     public static void main(String[] args) {
         int[] array = {1, 4, 7, 10, 17, 30, 48};
         int element = 10;

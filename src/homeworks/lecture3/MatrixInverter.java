@@ -10,7 +10,8 @@ public class MatrixInverter {
                 {7, 5, 4, 1},
                 {7, 5, 4, 1}
         };
-    /* Your code here */
+
+        /* Solution: */
 
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < i && i < array[i].length; j++) {
