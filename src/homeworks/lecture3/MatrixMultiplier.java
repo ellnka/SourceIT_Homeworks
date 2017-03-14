@@ -34,7 +34,7 @@ public class MatrixMultiplier {
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                for(int k = 0; k < second.length; k++ ) {
+                for (int k = 0; k < second.length; k++) {
                     result[i][j] += first[i][k] * second[k][j];
                 }
             }
