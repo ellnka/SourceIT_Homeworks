@@ -15,7 +15,7 @@ public class YourOwnBinarySearch {
         int result = -1;
 
         while (left <= right) {
-            int m = (left + right)/2;
+            int m = (left + right) / 2;
 
             if (array[m] == element) {
                 result = m;
