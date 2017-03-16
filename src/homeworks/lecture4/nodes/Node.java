@@ -51,7 +51,9 @@ public class Node {
      **/
     public void remove(int position) {
         /* assume that we start from a head
-        *  how can we reach head with this structure if we do not know where we are?
+        *  how can we reach a head with this structure if we do not know where we are?
+        *  Can we store a point to a previous element?
+        *  Can we store a head and a tail?
         * */
         Node removedNode = this;
         Node previuosNode = null;

@@ -1,4 +1,4 @@
-package edu.source.it.lectures.lecture4.homework.sort;
+package homeworks.lecture4.sort;
 
 public class HugeArraySorter {
     public static void main(String[] args) {
