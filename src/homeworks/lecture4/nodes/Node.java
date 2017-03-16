@@ -50,9 +50,29 @@ public class Node {
      * @param position number of the Node starting from the head
      **/
     public void remove(int position) {
-        /*Your code here*/
-        Node head = this;
+        /* assume that we start from a head
+        *  how can we reach head with this structure if we do not know where we are?
+        * */
+        Node removedNode = this;
+        Node previuosNode = null;
 
+        for (int i = 0; i < position; i++){
+            previuosNode = removedNode;
+            removedNode = removedNode.getNext();
+            if (removedNode == null) {
+                System.out.println("Sorry, You are trying to remove non-existent node");
+                return;
+            }
+        }
+
+        Node nextNode = removedNode.getNext();
+        if (previuosNode != null) {
+            previuosNode.setNext(nextNode);
+            removedNode.setNext(null);
+        } else {
+            this.value = removedNode.getNext().getValue();
+            this.next = removedNode.getNext().getNext();
+        }
 
     }
 

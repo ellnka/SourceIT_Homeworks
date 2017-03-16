@@ -9,9 +9,9 @@ public class NodeTest {
         head.add(new Node(5));
 
         head.print(head);
-        head.removeLast();
+        head.remove(1);
         head.print(head);
-        head.removeLast();
+
     }
 
 }
