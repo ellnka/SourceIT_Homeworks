@@ -1,4 +1,4 @@
-package edu.source.it.lectures.lecture4.homework.visitors;
+package homeworks.lecture4.Visitors;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -19,8 +19,19 @@ public class MaxVisitorInOffice {
         }
         int maxVisitorAtOnce = 0;
 
-        /*Your code here*/
-
+        /* Solution:
+        * I know it could be better...But it seems it works
+        * */
+        int countVisitors = 0;
+        for (int i = 0; i < visitors.length; i++) {
+            countVisitors++;
+            for (int j = 0; j < i; j++) {
+                if (visitors[j].getLeaveTime() < visitors[i].getComeTime()) {
+                    countVisitors--;
+                }
+            }
+            maxVisitorAtOnce = (countVisitors > maxVisitorAtOnce) ? countVisitors : maxVisitorAtOnce;
+        }
 
         System.out.println("Max visitors was " + maxVisitorAtOnce);
     }
