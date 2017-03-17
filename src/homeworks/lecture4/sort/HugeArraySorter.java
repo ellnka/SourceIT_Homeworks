@@ -5,31 +5,10 @@ import java.util.Arrays;
 public class HugeArraySorter {
     public static void main(String[] args) {
         int[] hugeArray = ArrayCreator.createHugeArray(10);
-        System.out.println(Arrays.toString(hugeArray));
-
-        int[] arrayCounter = new int [10];
-        for (int i = 0; i < hugeArray.length; i++) {
-            int tmp = hugeArray[i];
-            System.out.println(tmp);
-
-            int position = 0;
-            for(int j = 0; j <= hugeArray[i]; j++) {
-                position += arrayCounter[j];
-            }
-            System.out.println(position);
-            System.out.println(Arrays.toString(arrayCounter));
-            System.arraycopy(hugeArray, position + 1, hugeArray, position + 1, hugeArray.length - position - 1);
-            hugeArray[position] = tmp;
-            System.out.println(Arrays.toString(hugeArray));
-            arrayCounter[tmp]++;
-            System.out.println("");
-        }
+        //System.out.println(Arrays.toString(hugeArray));
 
 
-
-
-        /*
-        Solution#2
+        //Solution#1 - much faster than #2
         int[] arrayCounter = new int [10];
         for (int i = 0; i < hugeArray.length; i++) {
             arrayCounter[hugeArray[i]]++;
@@ -40,9 +19,24 @@ public class HugeArraySorter {
             Arrays.fill(hugeArray, startPosition, startPosition + arrayCounter[i], i);
             startPosition += arrayCounter[i];
         }
-        */
 
-        System.out.println(Arrays.toString(hugeArray));
+
+        /*
+        //Solution #2
+        int[] arrayCounter = new int [10];
+        for (int i = 0; i < hugeArray.length; i++) {
+            int element = hugeArray[i];
+
+            int position = 0;
+            for(int j = 0; j <= hugeArray[i]; j++) {
+                position += arrayCounter[j];
+            }
+            System.arraycopy(hugeArray, position, hugeArray, position + 1, i - position );
+            hugeArray[position] = element;
+            arrayCounter[element]++;
+        }*/
+
+       // System.out.println(Arrays.toString(hugeArray));
 
         for (int index = 0; index < hugeArray.length - 1; index++) {
             if (hugeArray[index] > hugeArray[index + 1]) {
