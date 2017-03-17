@@ -12,6 +12,10 @@ public class Node {
         return value;
     }
 
+    public void setValue(int value) {
+        this.value = value;
+    }
+
     public Node getNext() {
         return next;
     }
@@ -37,11 +41,15 @@ public class Node {
     }
 
     public void print(Node head) {
+        if (head == null) {
+            return;
+        }
         System.out.print(head.getValue() + " --> ");
         if (head.getNext() != null) {
             print(head.getNext());
+        } else {
+            System.out.println();
         }
-        System.out.println();
     }
 
     /**
@@ -50,16 +58,11 @@ public class Node {
      * @param position number of the Node starting from the head
      **/
     public void remove(int position) {
-        /* assume that we start from a head
-        *  how can we reach a head with this structure if we do not know where we are?
-        *  Can we store a point to a previous element?
-        *  Can we store a head and a tail?
-        * */
         Node removedNode = this;
-        Node previuosNode = null;
+        Node beforeNode = null;
 
         for (int i = 0; i < position; i++){
-            previuosNode = removedNode;
+            beforeNode = removedNode;
             removedNode = removedNode.getNext();
             if (removedNode == null) {
                 System.out.println("Sorry, You are trying to remove non-existent node");
@@ -67,13 +70,12 @@ public class Node {
             }
         }
 
-        Node nextNode = removedNode.getNext();
-        if (previuosNode != null) {
-            previuosNode.setNext(nextNode);
+        if (beforeNode != null) {
+            beforeNode.setNext(removedNode.getNext());
             removedNode.setNext(null);
         } else {
-            this.value = removedNode.getNext().getValue();
-            this.next = removedNode.getNext().getNext();
+            this.setValue(removedNode.getNext().getValue());
+            this.setNext(removedNode.getNext().getNext());
         }
 
     }
@@ -85,7 +87,28 @@ public class Node {
      * @param node node should be inserted at position
      */
     public void addNode(int position, Node node) {
-        /*Your code here*/
+        if (position == 0) {
+            Node thisClone = new Node(this.getValue());
+            thisClone.setNext(this.getNext());
+
+            this.setValue(node.getValue());
+            this.setNext(thisClone);
+
+            return;
+        }
+
+        Node beforeNode = this;
+        for (int i = 0; i < position; i++){
+            beforeNode = beforeNode.getNext();
+            if (beforeNode == null) {
+                System.out.println("Sorry, You are trying to add new node to non-existent position");
+                return;
+            }
+        }
+
+        node.setNext(beforeNode.getNext());
+        beforeNode.setNext(node);
+
     }
 
     /**
@@ -95,7 +118,23 @@ public class Node {
      * @return Node that located on the position from the tail (end of list) if position exists in list
      */
     public Node getFromTail(int position) {
-        /*Your code here and please remove "return null". I've put it for ability to compile code*/
-        return null;
+
+        Node node = this;
+        int countNodes = (node != null) ? 1 : 0;
+        while (node.getNext() != null && position > 0) {
+            node = node.getNext();
+            countNodes++;
+        }
+
+        if (countNodes < position || position <= 0) {
+            System.out.println("Sorry, You are trying to get a node from non-existent position");
+            return null;
+        }
+
+        node = this;
+        for (int i = 0; i < (countNodes - position); i++) {
+            node = node.getNext();
+        }
+        return node;
     }
 }
