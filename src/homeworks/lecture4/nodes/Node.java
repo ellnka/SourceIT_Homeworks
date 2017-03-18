@@ -88,24 +88,23 @@ public class Node {
      */
     public void addNode(int position, Node node) {
         if (position == 0) {
-            Node thisClone = new Node(this.getValue());
-            thisClone.setNext(this.getNext());
+            Node cloneOfThis = new Node(this.getValue());
+            cloneOfThis.setNext(this.getNext());
 
             this.setValue(node.getValue());
-            this.setNext(thisClone);
+            this.setNext(cloneOfThis);
 
             return;
         }
 
         Node beforeNode = this;
         for (int i = 0; i < position; i++){
-            beforeNode = beforeNode.getNext();
-            if (beforeNode == null) {
+            if (beforeNode == null || beforeNode.getNext() == null) {
                 System.out.println("Sorry, You are trying to add new node to non-existent position");
                 return;
             }
+            beforeNode = beforeNode.getNext();
         }
-
         node.setNext(beforeNode.getNext());
         beforeNode.setNext(node);
 
@@ -120,7 +119,7 @@ public class Node {
     public Node getFromTail(int position) {
 
         Node node = this;
-        int countNodes = (node != null) ? 1 : 0;
+        int countNodes = 1;
         while (node.getNext() != null && position > 0) {
             node = node.getNext();
             countNodes++;

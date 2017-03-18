@@ -2,7 +2,7 @@ package homeworks.lecture3;
 
 import java.util.Arrays;
 
-// please don't check it. it's not ready!!!!!
+// please ignore it. it's not ready!!!!! I still have no time to finish it
 
 public class WaterVolumeCalculator {
 

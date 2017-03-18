@@ -12,12 +12,14 @@ public class NodeTest {
         head.print(head);
         Node newNode = new Node(10);
         head.addNode(1, newNode);
+        head.addNode(4, newNode);
         head.print(head);
 
         System.out.println("----------------------------------- ");
 
         head.print(head);
-        head.remove(1);
+        head.remove(0);
+        head.remove(4);
         head.print(head);
 
         System.out.println("----------------------------------- ");
