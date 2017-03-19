@@ -9,31 +9,31 @@ public class HugeArraySorter {
 
 
         //Solution#1 - much faster than #2
-        int[] arrayCounter = new int [10];
+        int[] arrayOfCounters = new int [10];
         for (int i = 0; i < hugeArray.length; i++) {
-            arrayCounter[hugeArray[i]]++;
+            arrayOfCounters[hugeArray[i]]++;
         }
 
         int startPosition = 0;
-        for(int i = 0; i < arrayCounter.length; i++) {
-            Arrays.fill(hugeArray, startPosition, startPosition + arrayCounter[i], i);
-            startPosition += arrayCounter[i];
+        for(int i = 0; i < arrayOfCounters.length; i++) {
+            Arrays.fill(hugeArray, startPosition, startPosition + arrayOfCounters[i], i);
+            startPosition += arrayOfCounters[i];
         }
 
 
         /*
         //Solution #2
-        int[] arrayCounter = new int [10];
+        int[] arrayOfCounters = new int [10];
         for (int i = 0; i < hugeArray.length; i++) {
             int element = hugeArray[i];
 
             int position = 0;
             for(int j = 0; j <= hugeArray[i]; j++) {
-                position += arrayCounter[j];
+                position += arrayOfCounters[j];
             }
             System.arraycopy(hugeArray, position, hugeArray, position + 1, i - position );
             hugeArray[position] = element;
-            arrayCounter[element]++;
+            arrayOfCounters[element]++;
         }*/
 
        // System.out.println(Arrays.toString(hugeArray));

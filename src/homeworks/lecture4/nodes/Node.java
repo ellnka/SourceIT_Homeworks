@@ -119,19 +119,19 @@ public class Node {
     public Node getFromTail(int position) {
 
         Node node = this;
-        int countNodes = 1;
+        int nodeCounter = 1;
         while (node.getNext() != null && position > 0) {
             node = node.getNext();
-            countNodes++;
+            nodeCounter++;
         }
 
-        if (countNodes < position || position <= 0) {
+        if (nodeCounter < position || position <= 0) {
             System.out.println("Sorry, You are trying to get a node from non-existent position");
             return null;
         }
 
         node = this;
-        for (int i = 0; i < (countNodes - position); i++) {
+        for (int i = 0; i < (nodeCounter - position); i++) {
             node = node.getNext();
         }
         return node;
