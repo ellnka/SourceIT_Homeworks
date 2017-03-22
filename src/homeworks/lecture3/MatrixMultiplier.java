@@ -34,6 +34,10 @@ public class MatrixMultiplier {
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
+                if (first[i].length != second.length || first.length != second[j].length) {
+                    System.out.println("One of matrices is incorrect. Please check them");
+                    return;
+                }
                 for (int k = 0; k < second.length; k++) {
                     result[i][j] += first[i][k] * second[k][j];
                 }
