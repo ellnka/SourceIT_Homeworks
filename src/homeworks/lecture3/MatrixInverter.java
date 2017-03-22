@@ -14,6 +14,10 @@ public class MatrixInverter {
         /* Solution: */
 
         for (int i = 0; i < array.length; i++) {
+            if (array[i].length != array.length) {
+                System.out.println("Sorry, we cannot invert your matrix. It's not a square");
+                break;
+            }
             for (int j = 0; j < i && i < array[i].length; j++) {
                 int temp = array[i][j];
                 array[i][j] = array[j][i];
