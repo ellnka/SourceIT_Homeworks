@@ -22,17 +22,17 @@ public class MaxVisitorInOffice {
         /* Solution:
         * I know it could be better...But it seems it works
         * */
-        int countOfVisitors = 0;
+        
         for (int i = 0; i < visitors.length; i++) {
-            countOfVisitors++;
+            int countOfVisitors = 1;
             for (int j = 0; j < i; j++) {
-                if (visitors[j].getLeaveTime() < visitors[i].getComeTime()) {
-                    countOfVisitors--;
+                if (visitors[i].getComeTime() <= visitors[j].getLeaveTime()
+                        && visitors[i].getLeaveTime() >= visitors[j].getComeTime()) {
+                    countOfVisitors++;
                 }
             }
             maxVisitorAtOnce = (countOfVisitors > maxVisitorAtOnce) ? countOfVisitors : maxVisitorAtOnce;
         }
-
         System.out.println("Max visitors was " + maxVisitorAtOnce);
     }
 }
