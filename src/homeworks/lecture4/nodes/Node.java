@@ -116,22 +116,42 @@ public class Node {
      * @param position number of the Node starting from the tail
      * @return Node that located on the position from the tail (end of list) if position exists in list
      */
-    public Node getFromTail(int position) {
-
+     public Node getFromTail(int position) {
         Node node = this;
-        int nodeCounter = 1;
-        while (node.getNext() != null && position > 0) {
-            node = node.getNext();
-            nodeCounter++;
+        Node spareNode = this;
+        int counter = 1;
+
+        while (spareNode.getNext() != null && position > 0) {
+            spareNode = spareNode.getNext();
+            if (counter >= position) {
+                node = node.getNext();
+            }
+            counter++;
         }
 
-        if (nodeCounter < position || position <= 0) {
+        if (counter < position || position <= 0) {
+            System.out.println("Sorry, You are trying to get a node from non-existent position");
+            return null;
+        }
+        return node;
+    }
+
+    public Node getFromTail_v1(int position) {
+
+        Node node = this;
+        int countNodes = (node != null) ? 1 : 0;
+        while (node.getNext() != null && position > 0) {
+            node = node.getNext();
+            countNodes++;
+        }
+
+        if (countNodes < position || position <= 0) {
             System.out.println("Sorry, You are trying to get a node from non-existent position");
             return null;
         }
 
         node = this;
-        for (int i = 0; i < (nodeCounter - position); i++) {
+        for (int i = 0; i < (countNodes - position); i++) {
             node = node.getNext();
         }
         return node;
