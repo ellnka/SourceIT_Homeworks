@@ -136,7 +136,7 @@ public class Node {
         return node;
     }
 
-    public Node getFromTail_v1(int position) {
+    public Node getFromTailCountingNodes(int position) {
 
         Node node = this;
         int countNodes = (node != null) ? 1 : 0;
