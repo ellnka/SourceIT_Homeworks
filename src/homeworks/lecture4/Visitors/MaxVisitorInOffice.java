@@ -13,26 +13,49 @@ public class MaxVisitorInOffice {
                 return o1.getComeTime() > o2.getComeTime() ? 1 : -1;
             }
         });
-        for (Visitor visitor : visitors) {
-            System.out.println("Come " + new Date(visitor.getComeTime()));
-            System.out.println("Leave " + new Date(visitor.getLeaveTime()));
+
+        for (int i = 0; i < visitors.length; i++) {
+            System.out.print(" Come " + new Date(visitors[i].getComeTime()));
+            System.out.print(" | Leave " + new Date(visitors[i].getLeaveTime()));
+            System.out.println(" | Visitors " + countVisitorsAtTheMoment(visitors, i));
         }
         int maxVisitorAtOnce = 0;
 
-        /* Solution:
-        * I know it could be better...But it seems it works
-        * */
-        
+        /* Solution: */
+
         for (int i = 0; i < visitors.length; i++) {
-            int countOfVisitors = 1;
-            for (int j = 0; j < i; j++) {
-                if (visitors[i].getComeTime() <= visitors[j].getLeaveTime()
-                        && visitors[i].getLeaveTime() >= visitors[j].getComeTime()) {
-                    countOfVisitors++;
-                }
-            }
-            maxVisitorAtOnce = (countOfVisitors > maxVisitorAtOnce) ? countOfVisitors : maxVisitorAtOnce;
+            int countOfVisitorsAtTheMoment = countVisitorsAtTheMoment(visitors, i);
+            maxVisitorAtOnce = Math.max(countOfVisitorsAtTheMoment,  maxVisitorAtOnce);
         }
         System.out.println("Max visitors was " + maxVisitorAtOnce);
+
+        /* Solution#2: */
+        long[] times = new long[visitors.length];
+        long min = Long.MAX_VALUE;
+        int maxCount = 0;
+        for (int i = 0; i < visitors.length; i++) {
+            times[i] = -1 * visitors[i].getLeaveTime() + visitors[i].getComeTime();
+            min = Math.max(min, times[i]);
+        }
+        for (int i = 0; i < visitors.length; i++) {
+            if(times[i] <= min ) {
+                maxCount++;
+            }
+        }
+
+       // System.out.println(Arrays.toString(times));
+        System.out.println("Max visitors was " + maxCount);
+    }
+
+
+    public static int countVisitorsAtTheMoment(Visitor[] visitors, int positionAtTheMoment) {
+        int countOfVisitors = 1;
+        for (int j = 0; j < positionAtTheMoment; j++) {
+            if (visitors[positionAtTheMoment].getComeTime() <= visitors[j].getLeaveTime()
+                    && visitors[positionAtTheMoment].getLeaveTime() >= visitors[j].getComeTime()) {
+                countOfVisitors++;
+            }
+        }
+        return countOfVisitors;
     }
 }

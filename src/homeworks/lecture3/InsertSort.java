@@ -4,9 +4,23 @@ import java.util.Arrays;
 
 public class InsertSort {
     public static void main(String[] args) {
-        int[] array = {5, 7, 9, 15, 10, -1, 8};
+        int[] array = {100, 5, 7, 9, 15, 100, -1, 10, -1, 8, -1, 100};
 
-        /* Solution: */
+        /* Solution#2 (using an arraycopy): */
+        for (int i = 1; i < array.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (array[j] > array[i]) {
+                    int temp = array[i];
+                    System.arraycopy(array, j, array, j + 1, i - j);
+                    array[j] = temp;
+                    break;
+                }
+            }
+        }
+
+        /* Solution#1 (swapping elements): */
+        /*
+        //
         for (int i = 1; i < array.length; i++) {
             for (int j = i; j > 0 && array[j - 1] > array[j]; j--) {
 
@@ -18,6 +32,7 @@ public class InsertSort {
 
             }
         }
+        */
 
         System.out.println(Arrays.toString(array));
     }
