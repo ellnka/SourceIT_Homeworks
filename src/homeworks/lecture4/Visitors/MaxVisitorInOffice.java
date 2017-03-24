@@ -21,34 +21,21 @@ public class MaxVisitorInOffice {
         }
         int maxVisitorAtOnce = 0;
 
-        /* Solution: */
-
+        /* Solution#1: */
         for (int i = 0; i < visitors.length; i++) {
             int countOfVisitorsAtTheMoment = countVisitorsAtTheMoment(visitors, i);
             maxVisitorAtOnce = Math.max(countOfVisitorsAtTheMoment,  maxVisitorAtOnce);
         }
-        System.out.println("Max visitors was " + maxVisitorAtOnce);
+        System.out.println("#1. Max visitors was " + maxVisitorAtOnce);
 
         /* Solution#2: */
-        long[] times = new long[visitors.length];
-        long min = Long.MAX_VALUE;
-        int maxCount = 0;
-        for (int i = 0; i < visitors.length; i++) {
-            times[i] = -1 * visitors[i].getLeaveTime() + visitors[i].getComeTime();
-            min = Math.max(min, times[i]);
-        }
-        for (int i = 0; i < visitors.length; i++) {
-            if(times[i] <= min ) {
-                maxCount++;
-            }
-        }
-
-       // System.out.println(Arrays.toString(times));
-        System.out.println("Max visitors was " + maxCount);
+        maxVisitorAtOnce = countMaxVisitorsAtOnce(visitors);
+        System.out.println("#2. Max visitors was " + maxVisitorAtOnce );
     }
 
 
     public static int countVisitorsAtTheMoment(Visitor[] visitors, int positionAtTheMoment) {
+
         int countOfVisitors = 1;
         for (int j = 0; j < positionAtTheMoment; j++) {
             if (visitors[positionAtTheMoment].getComeTime() <= visitors[j].getLeaveTime()
@@ -58,4 +45,26 @@ public class MaxVisitorInOffice {
         }
         return countOfVisitors;
     }
+
+
+    public static int countMaxVisitorsAtOnce(Visitor[] visitors) {
+
+        VisitorTimes[] visitorTimes = VisitorTimes.createArrayOfTimes(visitors);
+        Arrays.sort(visitorTimes, new Comparator<VisitorTimes>() {
+            @Override
+            public int compare(VisitorTimes o1, VisitorTimes o2) {
+                return o1.getTime() > o2.getTime() ? 1 : -1;
+            }
+        });
+
+        int maxVisitorAtOnce = 0;
+        int countOfVisitors = 0;
+        for (VisitorTimes time: visitorTimes) {
+            countOfVisitors += time.isCome() ? 1 : -1;
+            maxVisitorAtOnce = Math.max(countOfVisitors, maxVisitorAtOnce);
+        }
+        return maxVisitorAtOnce;
+    }
+
+
 }
