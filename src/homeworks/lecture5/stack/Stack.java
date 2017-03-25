@@ -41,15 +41,15 @@ public class Stack {
     public void push(int element) {
         if (currentPosition == holder.length - 1) {
 
-            long length = holder.length * DEFAULT_CAPACITY_MULTIPLIER;
-            length =  length > MAX_STACK_SIZE ? MAX_STACK_SIZE : length;
+            int length = holder.length * DEFAULT_CAPACITY_MULTIPLIER;
+            length =  length - MAX_STACK_SIZE > 0 || length < 0 ? MAX_STACK_SIZE : length;
 
             if (length == holder.length) {
                 System.err.println("Cannot add a new element. The length of an array has reached maximum size");
                 return;
             } else {
                 //System.out.println("Extended, new size = " + length);
-                int[] extendedStack = new int[(int) length];
+                int[] extendedStack = new int[length];
                 System.arraycopy(holder, 0, extendedStack, 0, currentPosition + 1);
                 holder = extendedStack;
             }
