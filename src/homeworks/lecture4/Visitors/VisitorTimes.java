@@ -20,7 +20,7 @@ public class VisitorTimes {
 
     public static VisitorTimes[] createArrayOfTimes(Visitor[] visitors) {
         long countOfTimes = visitors.length * 2;
-        if (countOfTimes > Integer.MAX_VALUE) {
+        if (countOfTimes > Integer.MAX_VALUE - 8) {
             System.out.println("It's impossible to count. Too many visitors");
             return  null;
         }
