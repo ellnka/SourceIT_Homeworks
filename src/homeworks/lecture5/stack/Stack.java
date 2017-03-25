@@ -7,7 +7,7 @@ public class Stack {
     private static final int DEFAULT_STACK_SIZE          = 10;// ToDo: HomeWork - implement auto resize of inner array
     private static final int DEFAULT_CAPACITY_MULTIPLIER = 2; // ToDo: you should use this variable to increase/decrease
                                                               // ToDo: holder size in push() & pop() methods.
-    private static final int MAX_STACK_SIZE = 100; //Integer.MAX_VALUE;
+    private static final int MAX_STACK_SIZE = 100; //Integer.MAX_VALUE - 8;
 
     private int[] holder;
     private int currentPosition = -1;
