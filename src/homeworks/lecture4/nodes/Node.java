@@ -1,8 +1,8 @@
 package homeworks.lecture4.nodes;
 
 public class Node {
-    private int value;
-    private Node next;
+    protected int value;
+    protected Node next;
 
     public Node(int value) {
         this.value = value;
@@ -22,6 +22,7 @@ public class Node {
 
     public void setNext(Node next) {
         this.next = next;
+        System.out.println("new element added: " + this.value + ", " + this.next.value);
     }
 
     public void add(Node node) {
