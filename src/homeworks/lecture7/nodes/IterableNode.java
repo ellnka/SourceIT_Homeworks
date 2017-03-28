@@ -31,11 +31,11 @@ public class IterableNode extends Node implements Iterable<IterableNode> {
 
     private class NodeIterator implements Iterator {
         private IterableNode currentNode = head;
-        private IterableNode beforeCurrentNode = currentNode;
+        private IterableNode beforeCurrentNode = null;
 
         @Override
         public boolean hasNext() {
-            return beforeCurrentNode.getNext() != null;
+            return currentNode.getNext() != null;
         }
 
         @Override
@@ -43,24 +43,27 @@ public class IterableNode extends Node implements Iterable<IterableNode> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            beforeCurrentNode = currentNode;
-            currentNode = currentNode.getNext();
 
-            return beforeCurrentNode;
-
+            if (beforeCurrentNode != null) {
+                beforeCurrentNode = currentNode;
+                currentNode = beforeCurrentNode.getNext();
+            } else {
+                beforeCurrentNode = currentNode;
+            }
+            return currentNode;
         }
 
-        @Override
 
+        @Override
         public void remove() {
             if (currentNode == null) {
                 throw new NoSuchElementException();
             }
 
-            IterableNode nextNode = currentNode.getNext();
-            beforeCurrentNode.setNext(nextNode);
+            beforeCurrentNode.setNext(currentNode.getNext());
             currentNode = beforeCurrentNode;
         }
+
 
     }
 /*

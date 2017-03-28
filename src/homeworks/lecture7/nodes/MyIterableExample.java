@@ -10,26 +10,24 @@ public class MyIterableExample {
         head.getNext().setNext(new IterableNode(12));
         head.add(new IterableNode(13));
         head.add(new IterableNode(14));
-        head.print(head);
-        System.out.println("");
 
+        System.out.println("Print via Node.print function: ");
+        head.print(head);
+
+        System.out.println("\nPrint using foreach");
         for (IterableNode node : head) {
             System.out.print(node.getValue() + "-->");
         }
-        System.out.println("");
 
-        Iterator<IterableNode> iterator = head.iterator();
+        System.out.println("\nRemove element = 12");
+       Iterator<IterableNode> iterator = head.iterator();
         while (iterator.hasNext()) {
             IterableNode node = iterator.next();
-            System.out.print(node.getValue() + "-->");
             if(node.getValue() == 12) {
                 iterator.remove();
-                System.out.print("*removed*");
             }
         }
 
-
-        System.out.println("");
         for (IterableNode node : head) {
             System.out.print(node.getValue() + "-->");
         }
