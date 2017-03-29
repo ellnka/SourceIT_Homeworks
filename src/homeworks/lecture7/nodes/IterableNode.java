@@ -50,6 +50,7 @@ public class IterableNode extends Node implements Iterable<IterableNode> {
             } else {
                 beforeCurrentNode = currentNode;
             }
+           // System.out.println("current node = " + currentNode.getValue());
             return currentNode;
         }
 
@@ -60,8 +61,13 @@ public class IterableNode extends Node implements Iterable<IterableNode> {
                 throw new NoSuchElementException();
             }
 
-            beforeCurrentNode.setNext(currentNode.getNext());
-            currentNode = beforeCurrentNode;
+            if (beforeCurrentNode != currentNode) { // it compares points (not values)
+                beforeCurrentNode.setNext(currentNode.getNext());
+                currentNode.setNext(null);
+            } else {
+                head.setValue(currentNode.getNext().getValue());
+                head.setNext(currentNode.getNext().getNext());
+            }
         }
 
 
