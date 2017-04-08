@@ -37,13 +37,13 @@ public class MultiThreadedMergeSort {
 
 
 
-    class MergeRun implements Runnable {
+    class MergeSortRunnable implements Runnable {
         public int[] leftArray;
         public int[] rightArray;
         public int numberOfThreads;
         public int[] result;
 
-        public MergeRun(int[] leftArray, int[] rightArray, int numberOfThreads) {
+        public MergeSortRunnable(int[] leftArray, int[] rightArray, int numberOfThreads) {
             this.leftArray = leftArray;
             this.rightArray = rightArray;
             this.numberOfThreads = numberOfThreads;
@@ -61,7 +61,7 @@ public class MultiThreadedMergeSort {
     }
 
     private  int[] doMergeSort(int[] left, int[] right, int numberOfThreads) {
-        MergeRun mergeRun = null;
+        MergeSortRunnable mergeSortRunnable = null;
         Thread thread = null;
 
         if (left.length > 1) {
@@ -69,10 +69,9 @@ public class MultiThreadedMergeSort {
                 left = doMergeSort(Arrays.copyOfRange(left, 0, left.length / 2),
                         Arrays.copyOfRange(left, left.length / 2, left.length), numberOfThreads / 2);
             } else {
-                mergeRun = new MergeRun(Arrays.copyOfRange(left, 0, left.length / 2),
+                mergeSortRunnable = new MergeSortRunnable(Arrays.copyOfRange(left, 0, left.length / 2),
                         Arrays.copyOfRange(left, left.length / 2, left.length), numberOfThreads / 2);
-                thread = new Thread(mergeRun);
-                System.out.println("new thread");
+                thread = new Thread(mergeSortRunnable);
                 thread.start();
             }
         }
@@ -88,7 +87,7 @@ public class MultiThreadedMergeSort {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            left = mergeRun.getResult();
+            left = mergeSortRunnable.getResult();
         }
 
         int[] result = mergeLeftAndRight(left, right);
