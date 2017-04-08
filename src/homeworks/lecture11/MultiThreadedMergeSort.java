@@ -12,6 +12,7 @@ public class MultiThreadedMergeSort {
 
     public static void main(String[] args) {
         int[] hugeArray = ArrayCreator.createHugeArray(1000);
+
         long startTime = System.currentTimeMillis();
         MultiThreadedMergeSort multiThreadedMergeSort = new MultiThreadedMergeSort();
         int[] result = multiThreadedMergeSort.mergeSort(hugeArray);
@@ -19,13 +20,8 @@ public class MultiThreadedMergeSort {
         System.out.println("Multithreaded merge sort took " + (endTime - startTime) + "ms");
         //System.out.println(Arrays.toString(result));
 
-        for (int index = 0; index < result.length - 1; index++) {
-            if (result[index] > result[index + 1]) {
-                System.out.println("Sort failed!!!");
-                return;
-            }
-        }
-        System.out.println("Sort successful!!");
+        System.out.println((isArraySorted(result)) ? "Sort successful!!" : "Sort failed!!!" );
+
     }
 
     public int[] mergeSort(int[] array) {
@@ -33,6 +29,15 @@ public class MultiThreadedMergeSort {
                 Arrays.copyOfRange(array, 0, array.length / 2),
                 Arrays.copyOfRange(array, array.length / 2, array.length),
                 MAX_THREADS);
+    }
+
+    public static boolean isArraySorted (int[] array) {
+        for (int index = 0; index < array.length - 1; index++) {
+            if (array[index] > array[index + 1]) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
