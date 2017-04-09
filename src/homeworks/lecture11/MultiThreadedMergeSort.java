@@ -95,8 +95,7 @@ public class MultiThreadedMergeSort {
             left = mergeSortRunnable.getResult();
         }
 
-        int[] result = mergeLeftAndRight(left, right);
-        return result;
+        return mergeLeftAndRight(left, right);
     }
 
 

@@ -21,7 +21,7 @@ public class WriteGoogleToTxtAndZip
     private static final String URL            = "https://google.com";
     private static final String TXT_FILE_NAME  = "google.txt";
     private static final String ZIP_FILE_NAME  = "google.zip";
-    private static final int    BUFFER_SIZE    = 1024 * 2;
+    private static final int    BUFFER_SIZE    = 1024;
 
     public static void main(String[] args) {
         InputStream inputStream = null;
@@ -54,10 +54,8 @@ public class WriteGoogleToTxtAndZip
                     writeByteArrayToFile(buffer, count, zipFile, zipOutputStream);
                 }
             }
-
         } catch (IOException e) {
            e.printStackTrace();
-
         }
         finally {
             closeInputStream(inputStream);
@@ -78,7 +76,6 @@ public class WriteGoogleToTxtAndZip
                     System.out.println("File " + fileName + " deleted!");
                 }
             }
-            closeOutputStream(outputStream);
         }
     }
 
@@ -97,6 +94,10 @@ public class WriteGoogleToTxtAndZip
     private static void closeOutputStream(OutputStream outputStream) {
         if (outputStream != null) {
             try {
+                if (outputStream instanceof GZIPOutputStream) {
+                    GZIPOutputStream gzipOutputStream = (GZIPOutputStream) outputStream;
+                    gzipOutputStream.finish();
+                }
                 outputStream.flush();
             } catch (IOException e) {
                 e.printStackTrace();
