@@ -27,8 +27,8 @@ public class MultiThreadedMergeSort {
     public int[] mergeSort(int[] array) {
         return this.doMergeSort(
                 Arrays.copyOfRange(array, 0, array.length / 2),
-                Arrays.copyOfRange(array, array.length / 2, array.length),
-                MAX_THREADS);
+                    Arrays.copyOfRange(array, array.length / 2, array.length),
+                        MAX_THREADS);
     }
 
     public static boolean isArraySorted (int[] array) {
