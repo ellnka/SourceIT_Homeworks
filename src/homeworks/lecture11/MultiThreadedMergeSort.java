@@ -90,7 +90,9 @@ public class MultiThreadedMergeSort {
 
         if (numberOfThreads > 1) {
             try {
-                thread.join();
+                if (thread != null) {
+                    thread.join();
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
