@@ -17,7 +17,7 @@ public class MultiThreadedMergeSort {
         MultiThreadedMergeSort multiThreadedMergeSort = new MultiThreadedMergeSort();
         int[] result = multiThreadedMergeSort.mergeSort(hugeArray);
         long endTime   = System.currentTimeMillis();
-        System.out.println("Multithreaded merge sort took " + (endTime - startTime) + "ms");
+        System.out.println("Multithreaded merge sort took " + (endTime - startTime) + " ms");
         //System.out.println(Arrays.toString(result));
 
         System.out.println((isArraySorted(result)) ? "Sort successful!!" : "Sort failed!!!" );
@@ -56,7 +56,7 @@ public class MultiThreadedMergeSort {
 
         @Override
         public void run() {
-            result = doMergeSort(leftArray,rightArray, numberOfThreads);
+            result = doMergeSort(leftArray, rightArray, numberOfThreads);
         }
 
         public int[] getResult() {
