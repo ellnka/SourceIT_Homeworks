@@ -68,22 +68,22 @@ public class MultiThreadedMergeSort {
     private  int[] doMergeSort(int[] left, int[] right, int numberOfThreads) {
         MergeSortRunnable mergeSortRunnable = null;
         Thread thread = null;
-
         if (left.length > 1) {
             if(numberOfThreads <= 1) {
                 left = doMergeSort(Arrays.copyOfRange(left, 0, left.length / 2),
-                        Arrays.copyOfRange(left, left.length / 2, left.length), numberOfThreads / 2);
+                        Arrays.copyOfRange(left, left.length / 2, left.length), numberOfThreads);
             } else {
                 mergeSortRunnable = new MergeSortRunnable(Arrays.copyOfRange(left, 0, left.length / 2),
-                        Arrays.copyOfRange(left, left.length / 2, left.length), numberOfThreads / 2);
+                        Arrays.copyOfRange(left, left.length / 2, left.length), numberOfThreads - 1);
                 thread = new Thread(mergeSortRunnable);
                 thread.start();
             }
         }
+
         if (right.length > 1) {
             right = doMergeSort(Arrays.copyOfRange(right, 0, right.length / 2),
                     Arrays.copyOfRange(right, right.length / 2, right.length),
-                    numberOfThreads - numberOfThreads / 2);
+                    1);
         }
 
         if (numberOfThreads > 1) {
