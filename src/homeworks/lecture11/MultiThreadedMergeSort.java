@@ -40,31 +40,6 @@ public class MultiThreadedMergeSort {
         return true;
     }
 
-
-
-    class MergeSortRunnable implements Runnable {
-        public int[] leftArray;
-        public int[] rightArray;
-        public int numberOfThreads;
-        public int[] result;
-
-        public MergeSortRunnable(int[] leftArray, int[] rightArray, int numberOfThreads) {
-            this.leftArray = leftArray;
-            this.rightArray = rightArray;
-            this.numberOfThreads = numberOfThreads;
-        }
-
-        @Override
-        public void run() {
-            result = doMergeSort(leftArray, rightArray, numberOfThreads);
-        }
-
-        public int[] getResult() {
-            return result;
-        }
-
-    }
-
     private  int[] doMergeSort(int[] left, int[] right, int numberOfThreads) {
         MergeSortRunnable mergeSortRunnable = null;
         Thread thread = null;
@@ -124,4 +99,31 @@ public class MultiThreadedMergeSort {
         }
         return result;
     }
+    
+    
+    
+    class MergeSortRunnable implements Runnable {
+        public int[] leftArray;
+        public int[] rightArray;
+        public int numberOfThreads;
+        public int[] result;
+
+        public MergeSortRunnable(int[] leftArray, int[] rightArray, int numberOfThreads) {
+            this.leftArray = leftArray;
+            this.rightArray = rightArray;
+            this.numberOfThreads = numberOfThreads;
+        }
+
+        @Override
+        public void run() {
+            result = doMergeSort(leftArray, rightArray, numberOfThreads);
+        }
+
+        public int[] getResult() {
+            return result;
+        }
+
+    }
+    
+    
 }
