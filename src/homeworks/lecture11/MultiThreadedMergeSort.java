@@ -69,7 +69,7 @@ public class MultiThreadedMergeSort {
         MergeSortRunnable mergeSortRunnable = null;
         Thread thread = null;
         if (left.length > 1) {
-            if(numberOfThreads <= 1) {
+            if (numberOfThreads <= 1) {
                 left = doMergeSort(Arrays.copyOfRange(left, 0, left.length / 2),
                         Arrays.copyOfRange(left, left.length / 2, left.length), 
                                    numberOfThreads);
