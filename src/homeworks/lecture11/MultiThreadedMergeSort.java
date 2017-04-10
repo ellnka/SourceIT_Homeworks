@@ -71,10 +71,12 @@ public class MultiThreadedMergeSort {
         if (left.length > 1) {
             if(numberOfThreads <= 1) {
                 left = doMergeSort(Arrays.copyOfRange(left, 0, left.length / 2),
-                        Arrays.copyOfRange(left, left.length / 2, left.length), numberOfThreads);
+                        Arrays.copyOfRange(left, left.length / 2, left.length), 
+                                   numberOfThreads);
             } else {
                 mergeSortRunnable = new MergeSortRunnable(Arrays.copyOfRange(left, 0, left.length / 2),
-                        Arrays.copyOfRange(left, left.length / 2, left.length), numberOfThreads - 1);
+                        Arrays.copyOfRange(left, left.length / 2, left.length), 
+                                   numberOfThreads - 1);
                 thread = new Thread(mergeSortRunnable);
                 thread.start();
             }
@@ -83,7 +85,7 @@ public class MultiThreadedMergeSort {
         if (right.length > 1) {
             right = doMergeSort(Arrays.copyOfRange(right, 0, right.length / 2),
                     Arrays.copyOfRange(right, right.length / 2, right.length),
-                    1);
+                                    1);
         }
 
         if (numberOfThreads > 1) {
