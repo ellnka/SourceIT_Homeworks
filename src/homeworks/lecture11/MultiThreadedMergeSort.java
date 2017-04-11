@@ -71,7 +71,9 @@ public class MultiThreadedMergeSort {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            left = mergeSortRunnable.getResult();
+            if (mergeSortRunnable != null) {
+                left = mergeSortRunnable.getResult();
+            }
         }
 
         return mergeLeftAndRight(left, right);
