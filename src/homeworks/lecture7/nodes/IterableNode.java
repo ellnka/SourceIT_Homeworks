@@ -82,7 +82,7 @@ public class IterableNode extends Node implements Iterable<IterableNode> {
 
         public IterableNode getPrevNode() {
             IterableNode prevNode = null;
-            if (node != null) {
+            if (this.node != null) {
                 for (IterableNode node : head) {
                     if (node == this.node) { // compare points
                         break; // for
