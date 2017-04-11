@@ -30,7 +30,7 @@ public class MyIterableExample {
             int value = node.getValue();
             // remove elements from head, middle and tail of a node-list
             if (value == 5 || value == 12 || value == 14) {
-                System.out.println("\nRemove element = " + value);
+                System.out.println("\nRemove element => " + value);
                 iterator.remove();
                 for (IterableNode printedNode : head) {
                     System.out.print(printedNode.getValue() + " --> ");
@@ -38,7 +38,7 @@ public class MyIterableExample {
             }
         }
 
-        System.out.println("\n\nFinal list " );
+        System.out.println("\n\nFinal list: " );
         for (IterableNode printedNode : head) {
             System.out.print(printedNode.getValue() + " --> ");
         }
