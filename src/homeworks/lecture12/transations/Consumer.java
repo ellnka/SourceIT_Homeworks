@@ -30,7 +30,7 @@ public class Consumer implements Runnable {
             if (transaction == null) {
                 //ToDo : I should wait!
 
-                /* start: added by EY : Wait, queue, you're empty. You'll be notified when you can continue*/
+                /* start: added by EY : queue is empty, we can wait*/
                 try {
                     synchronized (transactionsQueue) {
                        System.out.println("Transaction#" + number + " is waiting for notification...");

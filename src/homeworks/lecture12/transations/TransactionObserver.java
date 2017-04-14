@@ -27,10 +27,10 @@ public class TransactionObserver implements Runnable {
                         System.out.println("Wait!");
                         transactionsQueue.wait();
                         System.out.println("Continue!");
-                    } /*else {
-                        transactionsQueue.notifyAll();
-                    }*/
+                    }
                 }
+
+
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -45,6 +45,8 @@ public class TransactionObserver implements Runnable {
             } catch (InterruptedException e) {*//*NOP*//*}*/
         }
     }
+
+
 
 
 }
