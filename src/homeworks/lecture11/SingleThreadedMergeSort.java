@@ -6,6 +6,9 @@ import java.util.Arrays;
 
 /**
  * Created by Elena Y on 4/8/2017.
+ 
+ * No need to check this file. It's just a copy of an example from a classwork.
+ * I've addeded it to compare multithreaded and singlethreaded sorts.
  */
 public class SingleThreadedMergeSort {
 

@@ -30,12 +30,12 @@ public class IterableNode extends Node implements Iterable<IterableNode> {
     }
 
     private class NodeIterator implements Iterator {
-        private IterableNode currentNode = head;
-        private IterableNode beforeCurrentNode = null;
+        private IterableNode nextNode = head;
+        private IterableNode node = null;
 
         @Override
         public boolean hasNext() {
-            return currentNode.getNext() != null;
+            return nextNode != null;
         }
 
         @Override
@@ -43,42 +43,56 @@ public class IterableNode extends Node implements Iterable<IterableNode> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-
-            if (beforeCurrentNode != null) {
-                beforeCurrentNode = currentNode;
-                currentNode = beforeCurrentNode.getNext();
-            } else {
-                beforeCurrentNode = currentNode;
-            }
-           // System.out.println("current node = " + currentNode.getValue());
-            return currentNode;
+            node = nextNode;
+            nextNode = (node != null) ? node.getNext() : null;
+            return node;
         }
 
 
         @Override
         public void remove() {
-            if (currentNode == null) {
+            if (node == null && nextNode == null) {
                 throw new NoSuchElementException();
             }
 
-            if (beforeCurrentNode != currentNode) { // it compares points (not values)
-                beforeCurrentNode.setNext(currentNode.getNext());
-                currentNode.setNext(null);
-            } else {
-                head.setValue(currentNode.getNext().getValue());
-                head.setNext(currentNode.getNext().getNext());
+            IterableNode prevNode = getPrevNode();
+
+            if (prevNode == null && nextNode != null) { // remove first element from initial list
+                head.setValue(nextNode.getValue());
+                head.setNext(nextNode.getNext());
             }
+
+            nextNode = (nextNode != null && prevNode == null) ? node :
+                            (node != null) ? node.getNext() : null;
+            node = prevNode;
+            if (node != null) {
+                node.setNext(nextNode);
+            }
+
+            if (prevNode == null && node == null && nextNode == null) { // remove last item
+                head = null;
+            }
+
+           /* System.out.println(" *** head element    = " + ((head != null) ? head.getValue() : "null"));
+            System.out.println(" *** prev element    = " + ((prevNode != null) ? prevNode.getValue() : "null"));
+            System.out.println(" *** current element = " + ((node != null) ? node.getValue() : "null"));
+            System.out.println(" *** next element    = " + ((nextNode != null) ? nextNode.getValue() : "null"));
+*/
         }
 
+        public IterableNode getPrevNode() {
+            IterableNode prevNode = null;
+            if (this.node != null) {
+                for (IterableNode node : head) {
+                    if (node == this.node) { // compare points
+                        break; // for
+                    } else {
+                        prevNode = node;
+                    }
+                }
+            }
+            return prevNode;
+        }
+    }
 
-    }
-/*
-    public IterableNode[] toArray() {
-        IterableNode[] result = new IterableNode[size];
-        int i = 0;
-        for (IterableNode x = this; x != null; x = x.getNext())
-            result[i++] = x;
-        return result;
-    }
-    */
 }

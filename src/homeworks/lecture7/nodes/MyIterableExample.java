@@ -15,21 +15,32 @@ public class MyIterableExample {
         head.print(head);
 
         System.out.println("\nPrint using foreach");
-        for (IterableNode node : head) {
-            System.out.print(node.getValue() + "-->");
+        for (IterableNode printedNode : head) {
+            System.out.print(printedNode.getValue() + " --> ");
         }
+        System.out.println("\n");
 
-        System.out.println("\nRemove element = 12");
-       Iterator<IterableNode> iterator = head.iterator();
+
+
+
+        Iterator<IterableNode> iterator = head.iterator();
         while (iterator.hasNext()) {
             IterableNode node = iterator.next();
-            if(node.getValue() == 12) {
+
+            int value = node.getValue();
+            // remove elements from head, middle and tail of a node-list
+            if (value == 5 || value == 12 || value == 14) {
+                System.out.println("\nRemove element => " + value);
                 iterator.remove();
+                for (IterableNode printedNode : head) {
+                    System.out.print(printedNode.getValue() + " --> ");
+                }
             }
         }
 
-        for (IterableNode node : head) {
-            System.out.print(node.getValue() + "-->");
+        System.out.println("\n\nFinal list: " );
+        for (IterableNode printedNode : head) {
+            System.out.print(printedNode.getValue() + " --> ");
         }
 
 
