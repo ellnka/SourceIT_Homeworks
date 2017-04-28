@@ -12,6 +12,9 @@ import static homeworks.lecture15.constants.JdbcConstants.*;
 public class InsertUserExample {
     public static void main(String[] args) {
         User user = RandomUser.createRandomUser();
+        if (user == null) {
+            return;
+        }
         try (Connection con = DriverManager.getConnection(CONNECTION_URL)) {
             con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             PreparedStatement stmt = con.prepareStatement(INSERT_USER_SQL);

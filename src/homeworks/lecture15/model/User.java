@@ -12,7 +12,7 @@ public class User {
     public User() {
     }
 
-    public User(long id, String name, String lastName, String login, String password, String email, UserRole userRole) {
+    public User(String name, String lastName, String login, String password, String email, UserRole userRole) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -20,6 +20,11 @@ public class User {
         this.password = password;
         this.email = email;
         this.userRole = userRole;
+    }
+
+    public User(long id, String name, String lastName, String login, String password, String email, UserRole userRole) {
+        this(name, lastName, login, password, email, userRole);
+        this.id = id;
     }
 
     public long getId() {

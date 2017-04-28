@@ -3,7 +3,7 @@ package homeworks.lecture15.constants;
 public class JdbcConstants {
     public final static String CONNECTION_URL       = "jdbc:mysql://127.0.0.1:3306/SourceIt?" +
                                                         "autoReconnect=true&useSSL=false" +
-                                                        "&user=root&password=admin";
+                                                        "&user=root&password=12345";
 
     public final static String SELECT_USER_BY_ID_SQL = "SELECT \n" +
             "    U.ID,\n" +

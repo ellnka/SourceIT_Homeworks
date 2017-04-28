@@ -1,25 +1,20 @@
 package homeworks.lecture15;
 
 import homeworks.lecture15.model.User;
-import homeworks.lecture15.model.UserRole;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Random;
 
 import static homeworks.lecture15.constants.JdbcConstants.*;
 
 public class UpdateUserExample {
     public static void main(String[] args) {
-        User user = RandomUser.getRandomUser();
-        System.out.println("User before update: ");
-        System.out.println(user);
+
 
         try (Connection con = DriverManager.getConnection(CONNECTION_URL)) {
             con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-            updateUserAllAttributesById(user, con);
-
-            updateUserNameByLogin(user, con);
+            updateUserAllAttributesById(con);
+            System.out.println("");
+            updateUserNameByLogin(con);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -27,11 +22,17 @@ public class UpdateUserExample {
     }
 
 
-    private static void updateUserAllAttributesById (User user, Connection con) throws SQLException {
-        user = RandomUser.updateRandomUser(user);
-        System.out.println("User after update: ");
-        System.out.println(user);
 
+    private static void updateUserAllAttributesById (Connection con) throws SQLException {
+        User user = RandomUser.getRandomUserFromDB();
+        System.out.println("User before updating all attributes: ");
+        System.out.println(user);
+        user = RandomUser.updateRandomUser(user);
+        System.out.println("New random attributes: ");
+        System.out.println(user);
+        if (user == null) {
+            return;
+        }
         PreparedStatement stmt = con.prepareStatement(UPDATE_USER_ALL_ATTR_BY_ID_SQL);
         stmt.setString(1, user.getName());
         stmt.setString(2, user.getLastName());
@@ -45,7 +46,13 @@ public class UpdateUserExample {
     }
 
 
-    private static void updateUserNameByLogin (User user, Connection con) throws SQLException {
+    private static void updateUserNameByLogin (Connection con) throws SQLException {
+        User user = RandomUser.getRandomUserFromDB();
+        System.out.println("User before updating a name: ");
+        System.out.println(user);
+        if (user == null) {
+            return;
+        }
         user.setName("Lisa");
         user.setLastName("Simpson");
 
@@ -53,9 +60,10 @@ public class UpdateUserExample {
         stmt.setString(1, user.getName());
         stmt.setString(2, user.getLastName());
         stmt.setString(3, user.getLogin());
-        int quantity = stmt.executeUpdate();
+        int quantity = stmt.executeUpdate(); // login is unique, will always be 0 or 1
+
         System.out.println(user);
-        System.out.println(quantity + " user#" + user.getId() + " has been updated");
+        System.out.println(quantity + " user with login= '" + user.getLogin() + "' has been updated");
     }
 
 
