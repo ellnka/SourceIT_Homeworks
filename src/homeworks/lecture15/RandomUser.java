@@ -19,7 +19,6 @@ public class RandomUser {
     /**
      * Creates a new instance of User.
      * New User will have all attributes populated with random values except "id".
-     * "id" will be a default int = 0
      *
      * @throws NullPointerException if User Role is null
      * @return new User object
