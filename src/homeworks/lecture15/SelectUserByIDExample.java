@@ -9,9 +9,10 @@ import static homeworks.lecture15.constants.JdbcConstants.SELECT_USER_BY_ID_SQL;
 
 public class SelectUserByIDExample {
     public static void main(String[] args) {
-
-        try (Connection con = DriverManager.getConnection(CONNECTION_URL)) {
-            PreparedStatement stmt = con.prepareStatement(SELECT_USER_BY_ID_SQL);
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(CONNECTION_URL);
+            PreparedStatement stmt = connection.prepareStatement(SELECT_USER_BY_ID_SQL);
             stmt.setLong(1, 3);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -27,8 +28,14 @@ public class SelectUserByIDExample {
                 );
                 System.out.println(user);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) { /* NOP*/ }
+            }
         }
     }
 

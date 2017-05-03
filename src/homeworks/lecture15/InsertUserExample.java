@@ -15,6 +15,7 @@ public class InsertUserExample {
         if (user == null) {
             return;
         }
+
         Connection connection = null;
         try  {
             connection = DriverManager.getConnection(CONNECTION_URL);
@@ -43,6 +44,12 @@ public class InsertUserExample {
                 } catch (SQLException rollbackException) {/* NOP */  }
             }
             exception.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) { /* NOP */}
+            }
         }
     }
 

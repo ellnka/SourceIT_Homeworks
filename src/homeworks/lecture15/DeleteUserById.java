@@ -12,28 +12,30 @@ import static homeworks.lecture15.constants.JdbcConstants.DELETE_USER_SQL;
 
 public class DeleteUserById {
     public static void main(String[] args) {
-        Connection con = null;
+        Connection connection = null;
         try  {
-            con = DriverManager.getConnection(CONNECTION_URL);
-            con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-            con.setAutoCommit(false);
-            PreparedStatement stmt = con.prepareStatement(DELETE_USER_SQL);
-            stmt.setLong(1, 8);
-            int updatedRows = stmt.executeUpdate();
-            System.out.println(updatedRows + " were updated");
+            connection = DriverManager.getConnection(CONNECTION_URL);
+            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            connection.setAutoCommit(false);
 
-            con.commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            if (con != null) {
+            PreparedStatement stmt = connection.prepareStatement(DELETE_USER_SQL);
+            stmt.setLong(1, 8);
+
+            int deletedRows = stmt.executeUpdate();
+            System.out.println(deletedRows + " were deleted");
+            connection.commit();
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            if (connection != null) {
                 try {
-                    con.rollback();
-                } catch (SQLException e1) {}
+                    connection.rollback();
+                } catch (SQLException rollbackException) {}
             }
         } finally {
-            if (con != null) {
+            if (connection != null) {
                 try {
-                    con.close();
+                    connection.close();
                 } catch (SQLException e) {}
             }
         }

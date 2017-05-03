@@ -34,18 +34,24 @@ public class UpdateUserExample {
                     connection.rollback();
                 } catch (SQLException rollbackException) { /* NOP */  }
             }
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) { /* NOP */}
+            }
         }
     }
 
 
 
-    private static int updateRandomUserAllAttributesById(Connection con) throws SQLException {
+    private static int updateRandomUserAllAttributesById(Connection connection) throws SQLException {
         User user = RandomUser.getRandomUserFromDB();
         user = RandomUser.updateRandomUser(user);
         if (user == null) {
             return 0;
         }
-        PreparedStatement stmt = con.prepareStatement(UPDATE_USER_ALL_ATTR_BY_ID_SQL);
+        PreparedStatement stmt = connection.prepareStatement(UPDATE_USER_ALL_ATTR_BY_ID_SQL);
         stmt.setString(1, user.getName());
         stmt.setString(2, user.getLastName());
         stmt.setString(3, user.getLogin());
@@ -60,7 +66,7 @@ public class UpdateUserExample {
     }
 
 
-    private static int updateRandomUserNameByLogin(Connection con) throws SQLException {
+    private static int updateRandomUserNameByLogin(Connection connection) throws SQLException {
         User user = RandomUser.getRandomUserFromDB();
         if (user == null) {
             return 0;
@@ -68,7 +74,7 @@ public class UpdateUserExample {
         user.setName("Lisa");
         user.setLastName("Simpson");
 
-        PreparedStatement stmt = con.prepareStatement(UPDATE_USER_NAME_BY_LOGIN_SQL);
+        PreparedStatement stmt = connection.prepareStatement(UPDATE_USER_NAME_BY_LOGIN_SQL);
         stmt.setString(1, user.getName());
         stmt.setString(2, user.getLastName());
         stmt.setString(3, user.getLogin());

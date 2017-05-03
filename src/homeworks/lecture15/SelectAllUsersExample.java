@@ -22,8 +22,10 @@ public class SelectAllUsersExample {
 
     public static ArrayList<User> selectAllUsersInArrayList() {
         ArrayList<User> userArrayList = new ArrayList<>();
-        try (Connection con = DriverManager.getConnection(CONNECTION_URL)){
-            PreparedStatement stmt = con.prepareStatement(SELECT_ALL_NEW_USERS_SQL);
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(CONNECTION_URL);
+            PreparedStatement stmt = connection.prepareStatement(SELECT_ALL_NEW_USERS_SQL);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -39,8 +41,14 @@ public class SelectAllUsersExample {
                 );
                 userArrayList.add(user);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException exception) { /* NOP*/ }
+            }
         }
         return userArrayList;
 
