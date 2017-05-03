@@ -9,29 +9,41 @@ import static homeworks.lecture15.constants.JdbcConstants.*;
 public class UpdateUserExample {
     public static void main(String[] args) {
 
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(CONNECTION_URL);
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_URL)) {
-            con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-            updateUserAllAttributesById(con);
-            System.out.println("");
-            updateUserNameByLogin(con);
+            if (updateRandomUserAllAttributesById(connection) > 0) {
+                connection.commit();
+            } else {
+                connection.rollback();
+            }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            if (updateRandomUserNameByLogin(connection) > 0) {
+                connection.commit();
+            } else {
+                connection.rollback();
+            }
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException rollbackException) { /* NOP */  }
+            }
         }
     }
 
 
 
-    private static void updateUserAllAttributesById (Connection con) throws SQLException {
+    private static int updateRandomUserAllAttributesById(Connection con) throws SQLException {
         User user = RandomUser.getRandomUserFromDB();
-        System.out.println("User before updating all attributes: ");
-        System.out.println(user);
         user = RandomUser.updateRandomUser(user);
-        System.out.println("New random attributes: ");
-        System.out.println(user);
         if (user == null) {
-            return;
+            return 0;
         }
         PreparedStatement stmt = con.prepareStatement(UPDATE_USER_ALL_ATTR_BY_ID_SQL);
         stmt.setString(1, user.getName());
@@ -41,17 +53,17 @@ public class UpdateUserExample {
         stmt.setString(5, user.getEmail());
         stmt.setLong(6, user.getUserRole().getId());
         stmt.setLong(7, user.getId());
+
         int quantity = stmt.executeUpdate();
         System.out.println(quantity + " user#" + user.getId() + " has been updated");
+        return  quantity;
     }
 
 
-    private static void updateUserNameByLogin (Connection con) throws SQLException {
+    private static int updateRandomUserNameByLogin(Connection con) throws SQLException {
         User user = RandomUser.getRandomUserFromDB();
-        System.out.println("User before updating a name: ");
-        System.out.println(user);
         if (user == null) {
-            return;
+            return 0;
         }
         user.setName("Lisa");
         user.setLastName("Simpson");
@@ -62,8 +74,8 @@ public class UpdateUserExample {
         stmt.setString(3, user.getLogin());
         int quantity = stmt.executeUpdate(); // login is unique, will always be 0 or 1
 
-        System.out.println(user);
         System.out.println(quantity + " user with login= '" + user.getLogin() + "' has been updated");
+        return quantity;
     }
 
 

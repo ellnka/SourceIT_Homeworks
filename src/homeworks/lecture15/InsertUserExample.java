@@ -15,20 +15,34 @@ public class InsertUserExample {
         if (user == null) {
             return;
         }
-        try (Connection con = DriverManager.getConnection(CONNECTION_URL)) {
-            con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-            PreparedStatement stmt = con.prepareStatement(INSERT_USER_SQL);
+        Connection connection = null;
+        try  {
+            connection = DriverManager.getConnection(CONNECTION_URL);
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+
+            PreparedStatement stmt = connection.prepareStatement(INSERT_USER_SQL);
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getLastName());
             stmt.setString(3, user.getLogin());
             stmt.setString(4, user.getPassword());
             stmt.setString(5, user.getEmail());
             stmt.setLong(6, user.getUserRole().getId());
+
             int quantity = stmt.executeUpdate();
-            //con.commit();
+            if (quantity > 0) {
+                connection.commit();
+            } else {
+                connection.rollback();
+            }
             System.out.println(quantity + " user(s) were inserted");
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException exception) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException rollbackException) {/* NOP */  }
+            }
+            exception.printStackTrace();
         }
     }
 
